@@ -3,48 +3,50 @@
     Layout = null;
 }
 
-
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body ng-app="PhoneBookApp">
     <h1 align="center">Контакты</h1>
-    <div ng-controller="phoneBookController">
-        <table st-table="contacts" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Фамилия</th>
-                    <th>День рождения</th>
-                    <th>Телефон</th>
-                    <th>Email</th>
-                </tr>
-                <tr>
-                    <th colspan="5"><input st-search="" class="form-control" placeholder="Поиск ..." type="text" /></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in contacts">
-                    <td>{{row.FullName}}</td>
-                    <td>{{row.BirthDate | date}}</td>
-                    <td>{{row.Phone}}</td>
-                    <td>{{row.Email}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div ng-controller="phoneBookController">
+    <label class="btn btn-sm btn-success">
+        <i class="glyphicon glyphicon-plus"></i> Импортирвать CSV
+        <input type="file" accept=".csv" onchange="angular.element(this).scope().uploadFile(this.files)" style="display: none;">
+    </label>
+    <button type="button" ng-click="exportFile()" class="btn btn-sm btn-success">
+        Экспортировать в CSV
+    </button>
 
-    
+    <table st-table="displayedCollection" st-safe-src="contacts" class="table table-striped">
+        <thead>
+        <tr>
+            <th st-sort="FullName">Фамилия</th>
+            <th st-sort="BirthDate">День рождения</th>
+            <th st-sort="Phone">Телефон</th>
+            <th st-sort="Email">Email</th>
+        </tr>
+        <tr>
+            <th colspan="4"><input st-search="" class="form-control" placeholder="Поиск ..." type="text"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in displayedCollection">
+            <td>{{row.FullName}}</td>
+            <td>{{row.BirthDate | date}}</td>
+            <td>{{row.Phone}}</td>
+            <td>{{row.Email}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/smart-table.js"></script>
     <script src="~/static/phoneBookApp.js"></script>
     <script src="~/static/phoneBookFactory.js"></script>
     <script src="~/static/phoneBookController.js"></script>
-
 </body>
 </html>

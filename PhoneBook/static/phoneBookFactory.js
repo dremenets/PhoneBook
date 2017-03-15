@@ -10,8 +10,17 @@
             return $http.get('/api/contacts');
         }
 
+        function uploadFile(file) {
+            return $http.post('/api/contacts/upload', file, {
+                withCredentials: true,
+                headers: { 'Content-Type': undefined },
+                transformRequest: angular.identity
+            });
+        }
+
         var service = {
-            getContacts: getContacts
+            getContacts: getContacts,
+            upload: uploadFile
         };
 
         return service;
