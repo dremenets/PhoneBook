@@ -1,23 +1,65 @@
 ﻿using PhoneBook.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
+using PhoneBook.DAL;
+using PhoneBook.DAL.Interfaces;
+using PhoneBook.Helpers;
 
 namespace PhoneBook.Controllers
 {
     public class ContactsController : ApiController
     {
+        private readonly IGenericRepository<Contact> _genericRepository = new EFGenericRepository<Contact>();
+
         [Route("api/contacts")]
         public List<Contact> GetContacts()
         {
-            var people = new List<Contact>()
-            {
-                new Contact { FullName = "FIO1", Email = "222@gmail.com", BirthDate = DateTime.Now, Phone = "89073711232"},
-                new Contact { FullName = "FIO2", Email = "111@gmail.com", BirthDate = DateTime.Now, Phone = "89073785232"},
-                new Contact { FullName = "FIO3", Email = "333@gmail.com", BirthDate = DateTime.Now, Phone = "89073781232"}
-            };
+            return _genericRepository.Get().ToList();
+        }
 
-            return people;
+        [Route("api/contacts/upload")]
+        public async Task<HttpResponseMessage> Upload()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            try
+            {
+                string csvContent = await GetCsvContent();
+                var contacts = PhoneBookCsvHelper.Read(csvContent);
+                _genericRepository.Create(contacts);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
+        }
+
+
+        private async Task<string> GetCsvContent()
+        {
+            string csvContent = null;
+            MultipartMemoryStreamProvider provider = await Request.Content.ReadAsMultipartAsync();
+            var content = provider.Contents.Last();
+            HttpContentHeaders headers = content.Headers;
+
+            if (headers != null && headers.ContentDisposition != null && headers.ContentDisposition.FileName != null)
+            {
+                byte[] buffer = await content.ReadAsByteArrayAsync();
+                byte[] byteArray = buffer.ToArray();
+                csvContent = Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
+            }
+            return csvContent;
         }
     }
 }

@@ -6,30 +6,32 @@ using System.IO;
 
 namespace PhoneBook.Helpers
 {
-    public class CsvHelper
+    public class PhoneBookCsvHelper
     {
-        public static List<Contact> Read(TextReader reader)
+        public static List<Contact> Read(string content)
         {
             var result = new List<Contact>();
-            var csv = new CsvReader(reader);
-            csv.Configuration.Delimiter = "    ";
-
-            while (csv.Read())
+            using (TextReader textReader = new StringReader(content))
             {
-                var fullName = csv.GetField<string>(0);
-                var email = csv.GetField<string>(1);
-                var phone = csv.GetField<string>(2);
-                var birthday = csv.GetField<DateTime>(3);
+                var csv = new CsvReader(textReader);
+                csv.Configuration.Delimiter = "\t";
 
-                result.Add(new Contact
+                while (csv.Read())
                 {
-                    FullName = fullName,
-                    Email = email,
-                    Phone = phone,
-                    BirthDate = birthday
-                });
-            }
+                    var fullName = csv.GetField<string>(0);
+                    var email = csv.GetField<string>(3);
+                    var phone = csv.GetField<string>(2);
+                    var birthday = csv.GetField<DateTime>(1);
 
+                    result.Add(new Contact
+                    {
+                        FullName = fullName,
+                        Email = email,
+                        Phone = phone,
+                        BirthDate = birthday
+                    });
+                }
+            }
             return result;
         }
 
