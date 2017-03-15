@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/ngDialog.min.css">
+    <link rel="stylesheet" href="~/Content/ngDialog-theme-default.css">
 </head>
 <body ng-app="PhoneBookApp">
     <h1 align="center">Контакты</h1>
@@ -39,14 +41,16 @@
             <td>{{row.BirthDate | date}}</td>
             <td>{{row.Phone}}</td>
             <td>{{row.Email}}</td>
+            <td><button class="btn btn-small" ng-click="edit(row)">Редактировать</button></td>
         </tr>
         </tbody>
     </table>
 </div>
     <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/ngDialog.js"></script>
     <script src="~/Scripts/smart-table.js"></script>
     <script src="~/static/phoneBookApp.js"></script>
-    <script src="~/static/phoneBookFactory.js"></script>
-    <script src="~/static/phoneBookController.js"></script>
+    <script src="~/static/factory/phoneBookFactory.js"></script>
+    <script src="~/static/controllers/phoneBookController.js"></script>
 </body>
 </html>
