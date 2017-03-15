@@ -18,12 +18,14 @@ namespace PhoneBook.Controllers
     {
         private readonly IGenericRepository<Contact> _genericRepository = new EFGenericRepository<Contact>();
 
+        [HttpGet]
         [Route("api/contacts")]
         public List<Contact> GetContacts()
         {
             return _genericRepository.Get().ToList();
         }
 
+        [HttpPost]
         [Route("api/contacts/upload")]
         public async Task<HttpResponseMessage> Upload()
         {
@@ -45,6 +47,28 @@ namespace PhoneBook.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("api/contacts/delete")]
+        public void Delete([FromBody] Contact item)
+        {
+            _genericRepository.Remove(item);
+        }
+
+        [HttpPut]
+        [Route("api/contacts/edit")]
+        public Contact Put([FromBody] Contact item)
+        {
+            _genericRepository.Update(item);
+            return _genericRepository.FindById(item.Id);
+        }
+
+        [HttpPost]
+        [Route("api/contacts/create")]
+        public Contact Post([FromBody] Contact item)
+        {
+            _genericRepository.Create(item);
+            return _genericRepository.FindById(item.Id);
+        }
 
         private async Task<string> GetCsvContent()
         {
