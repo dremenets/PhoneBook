@@ -26,6 +26,16 @@ namespace PhoneBook.DAL
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
+
+        public void Create(IEnumerable<TEntity> items)
+        {
+            foreach (var item in items)
+            {
+                _dbSet.Add(item);
+            }
+            _context.SaveChanges();
+        }
+
         public TEntity FindById(int id)
         {
             return _dbSet.Find(id);
