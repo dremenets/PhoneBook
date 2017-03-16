@@ -1,14 +1,14 @@
-﻿(function () {
+﻿(function() {
     'use strict';
 
     var controllerId = 'phoneBookController';
 
-    angular.module("PhoneBookApp").controller(controllerId, ['$scope', 'phoneBookFactory', 'ngDialog', phoneBookController]);
+    angular.module("PhoneBookApp").controller(controllerId, ['$scope', 'phoneBookFactory', '$location', phoneBookController]);
 
-    function phoneBookController($scope, factory, ngDialog) {
+    function phoneBookController($scope, factory) {
         $scope.contacts = [];
 
-        var loadContacts = function () {
+        var loadContacts = function() {
             factory.getContacts().then(function success(data) {
                 $scope.contacts = data.data;
             }, function error(e) {
@@ -18,7 +18,7 @@
 
         loadContacts();
 
-        $scope.uploadFile = function uploadFile(files) {
+        $scope.importFile = function importFile(files) {
             var fd = new FormData();
             fd.append("file", files[0]);
             factory.upload(fd).then(function success() {
@@ -29,28 +29,22 @@
         };
 
         $scope.exportFile = function exportFile() {
-            window.open('/api/contacts/download', '_blank', '');
+            factory.download();
         };
 
-        $scope.edit = function edit(item) {
-            var itemToEdit = item;
-            ngDialog.open({
-                template: 'static/views/edit.html',
-                className: 'ngdialog-theme-default',
-                resolve: { contact: angular.copy(itemToEdit) },
-                controller: ['$scope', function ctrl ($scope, contact) {
-                    debugger
-                    $scope.contact = contact;
+        $scope.edit = function edit(id) {
+        };
 
-                    $scope.save = function () {
-                        dialog.close($scope.contact);
-                    };
-
-                    $scope.close = function () {
-                        dialog.close(undefined);
-                    };
-                }]
+        $scope.deleteContact = function deleteContact(item) {
+            factory.deleteContact(item.Id).then(function success(data) {
+                loadContacts();
+            }, function error(e) {
+                console.log(e);
             });
+            loadContacts();
+        };
+
+        $scope.createNewContact = function createNewContact() {
         };
     }
 })();

@@ -10,6 +10,14 @@
             return $http.get('/api/contacts');
         }
 
+        function downloadFile() {
+            window.open('/api/contacts/download', '_blank', '');
+        }
+
+        function deleteContact(id) {
+            return $http.delete('/api/contacts/delete/' + id);
+        }
+
         function uploadFile(file) {
             return $http.post('/api/contacts/upload', file, {
                 withCredentials: true,
@@ -20,7 +28,9 @@
 
         var service = {
             getContacts: getContacts,
-            upload: uploadFile
+            upload: uploadFile,
+            download: downloadFile,
+            deleteContact: deleteContact
         };
 
         return service;

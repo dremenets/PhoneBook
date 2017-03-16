@@ -5,53 +5,56 @@
 
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="~/Content/ngDialog.min.css">
     <link rel="stylesheet" href="~/Content/ngDialog-theme-default.css">
 </head>
 <body ng-app="PhoneBookApp">
-    <h1 align="center">Контакты</h1>
+<h1 align="center">Контакты</h1>
 <div ng-controller="phoneBookController">
     <label class="btn btn-sm btn-success">
         <i class="glyphicon glyphicon-plus"></i> Импортирвать CSV
-        <input type="file" accept=".csv" onchange="angular.element(this).scope().uploadFile(this.files)" style="display: none;">
+        <input type="file" accept=".csv" onchange="angular.element(this).scope().importFile(this.files)" style="display: none;">
     </label>
     <button type="button" ng-click="exportFile()" class="btn btn-sm btn-success">
         Экспортировать в CSV
     </button>
-
-    <table st-table="displayedCollection" st-safe-src="contacts" class="table table-striped">
-        <thead>
-        <tr>
-            <th st-sort="FullName">Фамилия</th>
-            <th st-sort="BirthDate">День рождения</th>
-            <th st-sort="Phone">Телефон</th>
-            <th st-sort="Email">Email</th>
-            <th></th>
-        </tr>
-        <tr>
-            <th colspan="5"><input st-search="" class="form-control" placeholder="Поиск ..." type="text"/></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="row in displayedCollection">
-            <td>{{row.FullName}}</td>
-            <td>{{row.BirthDate | date}}</td>
-            <td>{{row.Phone}}</td>
-            <td>{{row.Email}}</td>
-            <td><button class="btn btn-small" ng-click="edit(row)">Редактировать</button></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table st-table="displayedCollection" st-safe-src="contacts" class="table table-striped">
+            <thead>
+            <tr>
+                <th st-sort="FullName">Фамилия</th>
+                <th st-sort="BirthDate">День рождения</th>
+                <th st-sort="Phone">Телефон</th>
+                <th st-sort="Email">Email</th>
+                <th width="40px;"></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="6"><input st-search="" class="form-control" placeholder="Поиск ..." type="text"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in displayedCollection">
+                <td>{{row.FullName}}</td>
+                <td>{{row.BirthDate | date}}</td>
+                <td>{{row.Phone}}</td>
+                <td>{{row.Email}}</td>
+                <td width="40px;"><a ng-click="edit(row)" class="btn btn-small btn-primary">edit</a></td>
+                <td><a ng-click="deleteContact(row)" class="btn btn-small btn-danger">delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/ngDialog.js"></script>
-    <script src="~/Scripts/smart-table.js"></script>
-    <script src="~/static/phoneBookApp.js"></script>
-    <script src="~/static/factory/phoneBookFactory.js"></script>
-    <script src="~/static/controllers/phoneBookController.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/ngDialog.js"></script>
+<script src="~/Scripts/smart-table.js"></script>
+<script src="~/static/phoneBookApp.js"></script>
+<script src="~/static/factory/phoneBookFactory.js"></script>
+<script src="~/static/controllers/phoneBookController.js"></script>
 </body>
 </html>
