@@ -33,13 +33,33 @@ namespace PhoneBook.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-
             try
             {
                 string csvContent = await GetCsvContent();
                 var contacts = PhoneBookCsvHelper.Read(csvContent);
                 _genericRepository.Create(contacts);
                 return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/contacts/download")]
+        public HttpResponseMessage Download()
+        {
+            try
+            {
+                var contacts = _genericRepository.Get().ToList();
+                var bytes = PhoneBookCsvHelper.Write(contacts);
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new ByteArrayContent(bytes);
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/csv");
+                response.Content.Headers.ContentDisposition.FileName = "contacts.csv";
+                return response;
             }
             catch (Exception e)
             {

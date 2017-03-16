@@ -8,13 +8,15 @@ namespace PhoneBook.Helpers
 {
     public class PhoneBookCsvHelper
     {
+        private const string SEPARATOR = "\t";
+
         public static List<Contact> Read(string content)
         {
             var result = new List<Contact>();
             using (TextReader textReader = new StringReader(content))
             {
                 var csv = new CsvReader(textReader);
-                csv.Configuration.Delimiter = "\t";
+                csv.Configuration.Delimiter = SEPARATOR;
 
                 while (csv.Read())
                 {
@@ -42,15 +44,25 @@ namespace PhoneBook.Helpers
                 using (TextWriter tx = new StreamWriter(fs))
                 {
                     var csv = new CsvWriter(tx);
-                    csv.Configuration.Delimiter = "    ";
+                    csv.Configuration.Delimiter = SEPARATOR;
+
+                    csv.WriteField("FullName");
+                    csv.WriteField("BirthDate");
+                    csv.WriteField("Phone");
+                    csv.WriteField("Email");
+                    csv.NextRecord();
 
                     foreach (var contact in contacts)
                     {
-                        csv.WriteRecord(contact);
+                        csv.WriteField(contact.FullName);
+                        csv.WriteField(contact.BirthDate);
+                        csv.WriteField(contact.Phone);
+                        csv.WriteField(contact.Email);
+                        csv.NextRecord();
                     }
-
-                    return fs.ToArray();
                 }
+
+                return fs.ToArray();
             }
         }
     }

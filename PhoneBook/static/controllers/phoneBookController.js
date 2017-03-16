@@ -29,7 +29,7 @@
         };
 
         $scope.exportFile = function exportFile() {
-            debugger;
+            window.open('/api/contacts/download', '_blank', '');
         };
 
         $scope.edit = function edit(item) {
