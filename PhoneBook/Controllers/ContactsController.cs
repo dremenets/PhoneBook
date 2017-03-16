@@ -68,10 +68,17 @@ namespace PhoneBook.Controllers
         }
 
         [HttpDelete]
-        [Route("api/contacts/delete")]
-        public void Delete([FromBody] Contact item)
+        [Route("api/contacts/delete/{id}")]
+        public HttpResponseMessage Delete(int id)
         {
-            _genericRepository.Remove(item);
+            var item = _genericRepository.FindById(id);
+            if (item == null)
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            else
+            {
+                _genericRepository.Remove(item);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
         }
 
         [HttpPut]
