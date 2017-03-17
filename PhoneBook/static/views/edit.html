@@ -1,4 +1,4 @@
-﻿<form class="form-horizontal alert alert-warning" name="contact_edit" id="contactForm" ng-submit="save(currentContact);" hidden>
+﻿<form class="form-horizontal alert alert-warning" name="contact_edit" id="contactForm" hidden>
     <h3 class="text-center">Редактирование контакта</h3>
     <div class="form-group">
         <label for="Name">Фамилия:</label>
@@ -29,7 +29,7 @@
         <p class="text-danger" ng-show="contact_edit.contact_birthdate.$invalid && contact_edit.contact_birthdate.$dirty">BirthDate field is Empty!</p>
     </div>
     <div class="form-group">
-        <button class="btn btn-warning" ng-disabled="contact_edit.$invalid">Сохранить</button>
+        <button class="btn btn-warning" ng-click="save(currentContact);" ng-disabled="contact_edit.$invalid">Сохранить</button>
         <button class="btn btn-warning" ng-click="disable()">Отмена</button>
     </div>
 </form>
