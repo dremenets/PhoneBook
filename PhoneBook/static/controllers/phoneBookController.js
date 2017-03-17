@@ -4,9 +4,15 @@
     var controllerId = 'phoneBookController';
 
     angular.module("PhoneBookApp").controller(controllerId, [
-        '$scope', 'phoneBookFactory', '$location',
-        function($scope, factory) {
+        '$scope', 'phoneBookFactory',
+        function ($scope, factory) {
             $scope.contacts = [];
+            $scope.predicate = 'Id';
+            $scope.reverse = false;
+            $scope.order = function(predicate) {
+                $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+                $scope.predicate = predicate;
+            };
 
             var loadContacts = function() {
                 factory.getContacts().then(function success(data) {
@@ -77,7 +83,6 @@
                 });
                 loadContacts();
             };
-
         }
     ]);
 })();

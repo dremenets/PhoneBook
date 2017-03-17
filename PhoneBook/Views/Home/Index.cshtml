@@ -88,15 +88,25 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>
-                <th>ID</th>
-                <th>Фамилия</th>
-                <th>День рождения</th>
-                <th>Телефон</th>
-                <th>Email</th>
+                <th>
+                    <a href="" ng-click="order('Id')">ID</a>
+                </th>
+                <th>
+                    <a href="" ng-click="order('FullName')">Фамилия</a>
+                </th>
+                <th>
+                    <a href="" ng-click="order('BirthDate')">День рождения</a>
+                </th>
+                <th>
+                    <a href="" ng-click="order('Phone')">Телефон</a>
+                </th>
+                <th>
+                    <a href="" ng-click="order('Email')">Email</a>
+                </th>
                 <th></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="row in contacts|filter:search_query">
+            <tr ng-repeat="row in contacts |orderBy:predicate:reverse |filter:search_query">
                 <td>{{row.Id}}</td>
                 <td>{{row.FullName}}</td>
                 <td>{{row.BirthDate | date}}</td>
