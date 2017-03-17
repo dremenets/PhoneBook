@@ -13,7 +13,11 @@
             }
 
             function put(contact) {
-                return $http.put('/api/contacts/edit', contact);
+                return $http.put('/api/contacts', contact);
+            }
+
+            function post(contact) {
+                return $http.post('/api/contacts', contact);
             }
 
             function downloadFile() {
@@ -21,7 +25,7 @@
             }
 
             function deleteContact(id) {
-                return $http.delete('/api/contacts/delete/' + id);
+                return $http.delete('/api/contacts/' + id);
             }
 
             function uploadFile(file) {
@@ -35,6 +39,7 @@
             var service = {
                 get: get,
                 put: put,
+                post: post,
                 getContacts: getContacts,
                 upload: uploadFile,
                 download: downloadFile,

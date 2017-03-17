@@ -75,7 +75,7 @@ namespace PhoneBook.Controllers
         }
 
         [HttpDelete]
-        [Route("api/contacts/delete/{id}")]
+        [Route("api/contacts/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = _genericRepository.FindById(id);
@@ -87,9 +87,9 @@ namespace PhoneBook.Controllers
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
         }
-
+        
         [HttpPut]
-        [Route("api/contacts/edit")]
+        [Route("api/contacts")]
         public Contact Put([FromBody] Contact item)
         {
             _genericRepository.Update(item);
@@ -97,7 +97,7 @@ namespace PhoneBook.Controllers
         }
 
         [HttpPost]
-        [Route("api/contacts/create")]
+        [Route("api/contacts")]
         public Contact Post([FromBody] Contact item)
         {
             _genericRepository.Create(item);

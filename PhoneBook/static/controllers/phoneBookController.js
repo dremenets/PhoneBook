@@ -42,17 +42,31 @@
                 });
             };
 
+            $scope.addContact = function addContact() {
+                $scope.currentContact = {};
+                $('#contactForm').slideToggle();
+            };
+
             $scope.disable = function disable() {
                 $('#contactForm').slideUp();
             };
 
             $scope.save = function save(item) {
-                factory.put(item).then(function success(data) {
-                    $('#contactForm').slideUp();
-                    loadContacts();
-                }, function error(e) {
-                    console.log(e);
-                });
+                if (!item.Id) {
+                    factory.post(item).then(function success(data) {
+                        $('#contactForm').slideUp();
+                        loadContacts();
+                    }, function error(e) {
+                        console.log(e);
+                    });
+                } else {
+                    factory.put(item).then(function success(data) {
+                        $('#contactForm').slideUp();
+                        loadContacts();
+                    }, function error(e) {
+                        console.log(e);
+                    });
+                }
             };
 
             $scope.deleteContact = function deleteContact(item) {
