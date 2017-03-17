@@ -19,6 +19,13 @@ namespace PhoneBook.Controllers
         private readonly IGenericRepository<Contact> _genericRepository = new EFGenericRepository<Contact>();
 
         [HttpGet]
+        [Route("api/contacts/{id}")]
+        public Contact Get(int id)
+        {
+            return _genericRepository.FindById(id);
+        }
+
+        [HttpGet]
         [Route("api/contacts")]
         public List<Contact> GetContacts()
         {
