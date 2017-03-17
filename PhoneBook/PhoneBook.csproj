@@ -118,9 +118,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\ngDialog-theme-default.css" />
-    <Content Include="Content\ngDialog.css" />
-    <Content Include="Content\ngDialog.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -139,13 +136,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\ngDialog.js" />
-    <Content Include="Scripts\ngDialog.min.js" />
     <Content Include="static\controllers\phoneBookController.js" />
     <Content Include="static\factory\phoneBookFactory.js" />
     <Content Include="static\phoneBookApp.js" />
-    <Content Include="static\views\create.html" />
-    <Content Include="static\views\edit.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="static\views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

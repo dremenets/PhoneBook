@@ -36,7 +36,41 @@
         </div>
     </nav>
     <div class="col-md-6 col-md-offset-3">
-        <div ng-include src="'static/views/edit.html'"></div>
+        <form class="form-horizontal alert alert-warning" name="contact_edit" id="contactForm" hidden>
+            <h3 class="text-center">Редактирование контакта</h3>
+            <div class="form-group">
+                <label for="Name">Фамилия:</label>
+                <input type="text" name="contact_name" class="form-control" placeholder="Введите фамилию" ng-model="currentContact.FullName" autofocus required />
+            </div>
+            <div class="form-group">
+                <p class="text-danger" ng-show="contact_edit.contact_name.$invalid && contact_edit.contact_name.$dirty">Name field is Empty!</p>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email:</label>
+                <input type="email" name="contact_email" class="form-control" placeholder="Введите email:" ng-model="currentContact.Email" autofocus required />
+            </div>
+            <div class="form-group">
+                <p class="text-danger" ng-show="contact_edit.contact_email.$invalid && contact_edit.contact_email.$dirty">Invalid Email!</p>
+            </div>
+            <div class="form-group">
+                <label for="Phone">Телефон:</label>
+                <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон:" ng-model="currentContact.Phone" autofocus required />
+            </div>
+            <div class="form-group">
+                <p class="text-danger" ng-show="contact_edit.contact_phone.$invalid && contact_edit.contact_phone.$dirty">Phone field is Empty!</p>
+            </div>
+            <div class="form-group">
+                <label for="BirthDate">День рождения:</label>
+                <input type="text" name="contact_birthdate" class="form-control" placeholder="Введите день рождения:" ng-model="currentContact.BirthDate" autofocus required />
+            </div>
+            <div class="form-group">
+                <p class="text-danger" ng-show="contact_edit.contact_birthdate.$invalid && contact_edit.contact_birthdate.$dirty">BirthDate field is Empty!</p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-warning" ng-click="save(currentContact);" ng-disabled="contact_edit.$invalid">Сохранить</button>
+                <button class="btn btn-warning" ng-click="disable()">Отмена</button>
+            </div>
+        </form>
     </div>
     <div class="table-responsive">
         <table class="table table-hover">
