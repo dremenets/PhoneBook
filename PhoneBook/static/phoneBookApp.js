@@ -1,6 +1,6 @@
 ﻿
 (function () {
     'use strict';
-    var app = angular.module("PhoneBookApp", ['smart-table', 'ngDialog']);
+    var app = angular.module("PhoneBookApp", []);
 
 })();

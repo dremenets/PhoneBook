@@ -1,17 +1,21 @@
-﻿body {
-    padding: 15px;
+﻿@import url(http://fonts.googleapis.com/css?family=Raleway);
+.wrapper{
+min-height: 960px;
 }
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+form#empForm, form#editForm {
+padding: 0 35px 15px;
 }
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+label.gender {
+padding-top: 0 !important;
 }
-
+table tr th{
+    background: #f8f8f8;
+}
+.search-box {
+    padding-bottom: 0;
+}
+@media screen and (max-width: 368px){
+.wrapper{
+    min-width: 340px;
+}   
+}

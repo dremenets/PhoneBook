@@ -8,51 +8,61 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="~/Content/ngDialog.min.css">
-    <link rel="stylesheet" href="~/Content/ngDialog-theme-default.css">
 </head>
 <body ng-app="PhoneBookApp">
-<h1 align="center">Контакты</h1>
-<div ng-controller="phoneBookController">
-    <label class="btn btn-sm btn-success">
-        <i class="glyphicon glyphicon-plus"></i> Импортирвать CSV
-        <input type="file" accept=".csv" onchange="angular.element(this).scope().importFile(this.files)" style="display: none;">
-    </label>
-    <button type="button" ng-click="exportFile()" class="btn btn-sm btn-success">
-        Экспортировать в CSV
-    </button>
+<div class="container wrapper" ng-controller="phoneBookController">
+    <h1 class="text-center">Контакты</h1>
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <div class="alert alert-default navbar-brand search-box">
+                <label class="btn btn-sm btn-primary" title="Загрузить файл в формате *.csv">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    Загрузить 
+                    <input type="file" accept=".csv" onchange="angular.element(this).scope().importFile(this.files)" style="display: none;">
+                </label>
+                <button type="button" ng-click="exportFile()" title="Скачать файл в формате *.csv" class="btn btn-sm btn-primary">
+                    <i class="glyphicon glyphicon-download"></i> 
+                    Скачать
+                </button>
+            </div>
+            <div class="alert alert-default input-group search-box">
+                <span class="input-group-btn">
+                    <input type="text" class="form-control" placeholder="Поиск в контактах..." ng-model="search_query">
+                </span>
+            </div>
+        </div>
+    </nav>
     <div class="table-responsive">
-        <table st-table="displayedCollection" st-safe-src="contacts" class="table table-striped">
-            <thead>
+        <table class="table table-hover">
             <tr>
-                <th st-sort="FullName">Фамилия</th>
-                <th st-sort="BirthDate">День рождения</th>
-                <th st-sort="Phone">Телефон</th>
-                <th st-sort="Email">Email</th>
-                <th width="40px;"></th>
+                <th>ID</th>
+                <th>Фамилия</th>
+                <th>День рождения</th>
+                <th>Телефон</th>
+                <th>Email</th>
+                <th></th>
                 <th></th>
             </tr>
-            <tr>
-                <th colspan="6"><input st-search="" class="form-control" placeholder="Поиск ..." type="text"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in displayedCollection">
+            <tr ng-repeat="row in contacts|filter:search_query">
+                <td>{{row.Id}}</td>
                 <td>{{row.FullName}}</td>
                 <td>{{row.BirthDate | date}}</td>
                 <td>{{row.Phone}}</td>
                 <td>{{row.Email}}</td>
-                <td width="40px;"><a ng-click="edit(row)" class="btn btn-small btn-primary">edit</a></td>
-                <td><a ng-click="deleteContact(row)" class="btn btn-small btn-danger">delete</a></td>
+                <td>
+                    <button class="btn btn-primary" ng-click="edit(row)" title="Редактировать контакт"><span class="glyphicon glyphicon-edit"></span></button>
+                </td>
+                <td>
+                    <button class="btn btn-warning" ng-click="deleteContact(row)" title="Удалить контакт"><span class="glyphicon glyphicon-trash"></span></button>
+                </td>
             </tr>
-            </tbody>
         </table>
     </div>
 </div>
 <script src="~/Scripts/angular.js"></script>
-<script src="~/Scripts/ngDialog.js"></script>
-<script src="~/Scripts/smart-table.js"></script>
 <script src="~/static/phoneBookApp.js"></script>
 <script src="~/static/factory/phoneBookFactory.js"></script>
 <script src="~/static/controllers/phoneBookController.js"></script>
