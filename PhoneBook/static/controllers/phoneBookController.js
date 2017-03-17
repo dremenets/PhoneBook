@@ -14,9 +14,21 @@
                 $scope.predicate = predicate;
             };
 
+            $scope.currentPage = 1;
+            $scope.totalItems = $scope.contacts.length;
+            $scope.numPerPage = 10;
+            $scope.paginate = function paginate(value) {
+                var begin, end, index;
+                begin = ($scope.currentPage - 1) * $scope.numPerPage;
+                end = begin + $scope.numPerPage;
+                index = $scope.contacts.indexOf(value);
+                return (begin <= index && index < end);
+            };
+
             var loadContacts = function() {
                 factory.getContacts().then(function success(data) {
                     $scope.contacts = data.data;
+                    $scope.totalItems = $scope.contacts.length;
                 }, function error(e) {
                     console.log(e);
                 });

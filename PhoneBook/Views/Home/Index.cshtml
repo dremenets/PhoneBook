@@ -106,7 +106,7 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="row in contacts |orderBy:predicate:reverse |filter:search_query">
+            <tr ng-repeat="row in contacts |orderBy:predicate:reverse| filter:paginate |filter:search_query">
                 <td>{{row.Id}}</td>
                 <td>{{row.FullName}}</td>
                 <td>{{row.BirthDate | date}}</td>
@@ -120,9 +120,15 @@
                 </td>
             </tr>
         </table>
+
+        <pagination total-items="totalItems" ng-model="currentPage"
+                    max-size="10" boundary-links="true"
+                    items-per-page="numPerPage" class="pagination-sm">
+        </pagination>  
     </div>
 </div>
 <script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/ui-bootstrap-tpls-0.11.1.min.js"></script> 
 <script src="~/static/phoneBookApp.js"></script>
 <script src="~/static/factory/phoneBookFactory.js"></script>
 <script src="~/static/controllers/phoneBookController.js"></script>
