@@ -32,7 +32,26 @@
             factory.download();
         };
 
-        $scope.edit = function edit(id) {
+        $scope.editContact = function editContact(row) {
+            factory.get(row.Id).then(function success(data) {
+                $scope.currentContact = data.data;
+                $('#contactForm').slideToggle();
+            }, function error(e) {
+                console.log(e);
+            });
+        };
+
+        $scope.disable = function disable() {
+            $('#contactForm').slideUp();
+        };
+
+        $scope.save = function save(item) {
+            factory.put(item).then(function success(data) {
+                $('#contactForm').slideUp();
+                loadContacts();
+            }, function error(e) {
+                console.log(e);
+            });
         };
 
         $scope.deleteContact = function deleteContact(item) {
@@ -42,9 +61,6 @@
                 console.log(e);
             });
             loadContacts();
-        };
-
-        $scope.createNewContact = function createNewContact() {
         };
     }
 })();

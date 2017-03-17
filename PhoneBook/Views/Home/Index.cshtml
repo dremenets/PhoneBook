@@ -20,11 +20,11 @@
             <div class="alert alert-default navbar-brand search-box">
                 <label class="btn btn-sm btn-primary" title="Загрузить файл в формате *.csv">
                     <i class="glyphicon glyphicon-upload"></i>
-                    Загрузить 
+                    Загрузить
                     <input type="file" accept=".csv" onchange="angular.element(this).scope().importFile(this.files)" style="display: none;">
                 </label>
                 <button type="button" ng-click="exportFile()" title="Скачать файл в формате *.csv" class="btn btn-sm btn-primary">
-                    <i class="glyphicon glyphicon-download"></i> 
+                    <i class="glyphicon glyphicon-download"></i>
                     Скачать
                 </button>
             </div>
@@ -35,6 +35,9 @@
             </div>
         </div>
     </nav>
+    <div class="col-md-6 col-md-offset-3">
+        <div ng-include src="'static/views/edit.html'"></div>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover">
             <tr>
@@ -53,7 +56,7 @@
                 <td>{{row.Phone}}</td>
                 <td>{{row.Email}}</td>
                 <td>
-                    <button class="btn btn-primary" ng-click="edit(row)" title="Редактировать контакт"><span class="glyphicon glyphicon-edit"></span></button>
+                    <button class="btn btn-primary" ng-click="editContact(row)" title="Редактировать контакт"><span class="glyphicon glyphicon-edit"></span></button>
                 </td>
                 <td>
                     <button class="btn btn-warning" ng-click="deleteContact(row)" title="Удалить контакт"><span class="glyphicon glyphicon-trash"></span></button>

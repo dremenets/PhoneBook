@@ -1,35 +1,35 @@
-﻿<div class="container">
-    <h1>Данные контакта:</h1>
-    <form novalidate="novalidate" class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="inputFullName">Фамилия</label>
-            <div class="controls">
-                <input type="text" id="inputFullName" ng-model="contact.FullName" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputBirthDate">День рождения:</label>
-            <div class="controls">
-                <input type="text" id="inputBirthDate" ng-model="contact.BirthDate"/>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputPhone">Телефон:</label>
-            <div class="controls">
-                <input type="text" id="inputPhone" ng-model="contact.Phone"/>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputEmail">Email:</label>
-            <div class="controls">
-                <input type="text" id="inputEmail" ng-model="contact.Email" />
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <a ng-click="cancel()" class="btn btn-small">Отмена</a>
-                <a ng-click="updateContact()" class="btn btn-small btn-primary">Обновить</a>
-            </div>
-        </div>
-    </form>
-</div>
+﻿<form class="form-horizontal alert alert-warning" name="contact_edit" id="contactForm" ng-submit="save(currentContact);" hidden>
+    <h3 class="text-center">Редактирование контакта</h3>
+    <div class="form-group">
+        <label for="Name">Фамилия:</label>
+        <input type="text" name="contact_name" class="form-control" placeholder="Введите фамилию" ng-model="currentContact.FullName" autofocus required />
+    </div>
+    <div class="form-group">
+        <p class="text-danger" ng-show="contact_edit.contact_name.$invalid && contact_edit.contact_name.$dirty">Name field is Empty!</p>
+    </div>
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input type="email" name="contact_email" class="form-control" placeholder="Введите email:" ng-model="currentContact.Email" autofocus required />
+    </div>
+    <div class="form-group">
+        <p class="text-danger" ng-show="contact_edit.contact_email.$invalid && contact_edit.contact_email.$dirty">Invalid Email!</p>
+    </div>
+    <div class="form-group">
+        <label for="Phone">Телефон:</label>
+        <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон:" ng-model="currentContact.Phone" autofocus required />
+    </div>
+    <div class="form-group">
+        <p class="text-danger" ng-show="contact_edit.contact_phone.$invalid && contact_edit.contact_phone.$dirty">Phone field is Empty!</p>
+    </div>
+    <div class="form-group">
+        <label for="BirthDate">День рождения:</label>
+        <input type="text" name="contact_birthdate" class="form-control" placeholder="Введите день рождения:" ng-model="currentContact.BirthDate" autofocus required />
+    </div>
+    <div class="form-group">
+        <p class="text-danger" ng-show="contact_edit.contact_birthdate.$invalid && contact_edit.contact_birthdate.$dirty">BirthDate field is Empty!</p>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-warning" ng-disabled="contact_edit.$invalid">Сохранить</button>
+        <button class="btn btn-warning" ng-click="disable()">Отмена</button>
+    </div>
+</form>
