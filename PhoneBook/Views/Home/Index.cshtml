@@ -10,7 +10,9 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="~/Content/datetimepicker.css"/>
 </head>
 <body ng-app="PhoneBookApp">
 <div class="container wrapper" ng-controller="phoneBookController">
@@ -40,29 +42,42 @@
             <h3 class="text-center">Редактирование контакта</h3>
             <div class="form-group">
                 <label for="Name">Фамилия:</label>
-                <input type="text" name="contact_name" class="form-control" placeholder="Введите фамилию" ng-model="currentContact.FullName" autofocus required />
+                <input type="text" name="contact_name" class="form-control" placeholder="Введите фамилию" ng-model="currentContact.FullName" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_name.$invalid && contact_edit.contact_name.$dirty">Name field is Empty!</p>
             </div>
             <div class="form-group">
                 <label for="Email">Email:</label>
-                <input type="email" name="contact_email" class="form-control" placeholder="Введите email:" ng-model="currentContact.Email" autofocus required />
+                <input type="email" name="contact_email" class="form-control" placeholder="Введите email:" ng-model="currentContact.Email" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_email.$invalid && contact_edit.contact_email.$dirty">Invalid Email!</p>
             </div>
             <div class="form-group">
                 <label for="Phone">Телефон:</label>
-                <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон:" ng-model="currentContact.Phone" autofocus required />
+                <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон:" ng-model="currentContact.Phone" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_phone.$invalid && contact_edit.contact_phone.$dirty">Phone field is Empty!</p>
             </div>
             <div class="form-group">
                 <label for="BirthDate">День рождения:</label>
-                <input type="text" name="contact_birthdate" class="form-control" placeholder="Введите день рождения:" ng-model="currentContact.BirthDate" autofocus required />
+                <div class="dropdown">
+                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group">
+                            <input type="text" class="form-control" data-ng-model="currentContact.BirthDate"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="currentContact.BirthDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }" />
+                    </ul>
+                </div>
+
+
+                @*<input type="text" date-time format="DD MMM YYYY" view="days" min-view="hours" name="contact_birthdate" class="form-control" placeholder="Введите день рождения:" ng-model="currentContact.BirthDate" autofocus required/>*@
             </div>
+            
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_birthdate.$invalid && contact_edit.contact_birthdate.$dirty">BirthDate field is Empty!</p>
             </div>
@@ -100,6 +115,9 @@
     </div>
 </div>
 <script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+<script type="text/javascript" src="~/Scripts/datetimepicker.js"></script>
+<script type="text/javascript" src="~/Scripts/datetimepicker.templates.js"></script>
 <script src="~/static/phoneBookApp.js"></script>
 <script src="~/static/factory/phoneBookFactory.js"></script>
 <script src="~/static/controllers/phoneBookController.js"></script>
