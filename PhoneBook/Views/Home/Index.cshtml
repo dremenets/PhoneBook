@@ -10,9 +10,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="~/Content/datetimepicker.css"/>
 </head>
 <body ng-app="PhoneBookApp">
 <div class="container wrapper" ng-controller="phoneBookController">
@@ -38,39 +36,43 @@
         </div>
     </nav>
     <div class="col-md-6 col-md-offset-3">
-        <form class="form-horizontal alert alert-warning" name="contact_edit" id="contactForm" hidden>
+        <form class="form-horizontal alert alert-info ng-pristine ng-valid ng-scope ng-valid-email" name="contact_edit" id="contactForm" hidden>
             <h3 class="text-center">Редактирование контакта</h3>
             <div class="form-group">
-                <label for="Name">Фамилия:</label>
+                <label>Фамилия:</label>
                 <input type="text" name="contact_name" class="form-control" placeholder="Введите фамилию" ng-model="currentContact.FullName" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_name.$invalid && contact_edit.contact_name.$dirty">Фамилия не должна быть пустой!</p>
             </div>
             <div class="form-group">
-                <label for="BirthDate">День рождения:</label>
-                <input type="date" name="contact_birthdate" class="form-control" placeholder="Введите день рождения:" ng-model="currentContact.BirthDate" autofocus required />
+                <label>День рождения:</label>
+                <input type="date" name="contact_birthdate" class="form-control" placeholder="Введите день рождения" ng-model="currentContact.BirthDate" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_birthdate.$invalid && contact_edit.contact_birthdate.$dirty">День рождения не должен быть пустой!</p>
             </div>
             <div class="form-group">
-                <label for="Email">Email:</label>
-                <input type="email" name="contact_email" class="form-control" placeholder="Введите email:" ng-model="currentContact.Email" autofocus required/>
+                <label>Email:</label>
+                <input type="email" name="contact_email" class="form-control" placeholder="Введите email" ng-model="currentContact.Email" autofocus required/>
             </div>
             <div class="form-group">
-                <p class="text-danger" ng-show="contact_edit.contact_email.$invalid && contact_edit.contact_email.$dirty">Email не должен быть пустой!</p>
+                <p class="text-danger" ng-show="contact_edit.contact_email.$invalid && contact_edit.contact_email.$dirty">Email пустой или неверный формат!</p>
             </div>
             <div class="form-group">
-                <label for="Phone">Телефон:</label>
-                <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон:" ng-model="currentContact.Phone" autofocus required/>
+                <label>Телефон:</label>
+                <input type="text" name="contact_phone" class="form-control" placeholder="Введите телефон" ng-model="currentContact.Phone" autofocus required/>
             </div>
             <div class="form-group">
                 <p class="text-danger" ng-show="contact_edit.contact_phone.$invalid && contact_edit.contact_phone.$dirty">Телефон не должен быть пустой!</p>
             </div>
             <div class="form-group">
-                <button class="btn btn-warning" ng-click="save(currentContact);" ng-disabled="contact_edit.$invalid">Сохранить</button>
-                <button class="btn btn-warning" ng-click="disable()">Отмена</button>
+                <div class="row">
+                    <div class="center-block" style="width: 200px;">
+                        <button class="btn btn-success" ng-click="save(currentContact);" ng-disabled="contact_edit.$invalid">Сохранить</button>
+                        <button class="btn btn-danger" ng-click="disable()">Отмена</button>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
@@ -102,9 +104,6 @@
     </div>
 </div>
 <script src="~/Scripts/angular.js"></script>
-<script src="~/Scripts/moment.min.js"></script>
-<script type="text/javascript" src="~/Scripts/datetimepicker.js"></script>
-<script type="text/javascript" src="~/Scripts/datetimepicker.templates.js"></script>
 <script src="~/static/phoneBookApp.js"></script>
 <script src="~/static/factory/phoneBookFactory.js"></script>
 <script src="~/static/controllers/phoneBookController.js"></script>

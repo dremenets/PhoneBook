@@ -2,12 +2,10 @@
 .wrapper{
 min-height: 960px;
 }
-form#empForm, form#editForm {
+form#contactForm {
 padding: 0 35px 15px;
 }
-label.gender {
-padding-top: 0 !important;
-}
+
 table tr th{
     background: #f8f8f8;
 }
