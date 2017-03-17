@@ -34,6 +34,7 @@
 
         $scope.editContact = function editContact(row) {
             factory.get(row.Id).then(function success(data) {
+                data.data.BirthDate = new Date(data.data.BirthDate);
                 $scope.currentContact = data.data;
                 $('#contactForm').slideToggle();
             }, function error(e) {
